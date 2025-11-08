@@ -1,0 +1,72 @@
+:root{
+  --vw-dark: #032b2a; /* deep teal/green similar to VW header */
+  --vw-accent: #00b26a; /* accent for buttons */
+  --vw-muted: #f2f4f3;
+  --card-bg: #ffffff;
+  --max-width: 980px;
+  --radius: 8px;
+  --text: #073235;
+  --muted-text: #3b5960;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* reset */
+*{box-sizing:border-box}
+body, html, #root {height:100%; margin:0; background:var(--vw-muted)}
+
+.vw-header{
+  background:var(--vw-dark);
+  color:white;
+  padding:12px 18px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+.vw-header-inner{
+  max-width:var(--max-width);
+  margin:0 auto; display:flex; align-items:center; gap:20px;
+}
+.vw-logo{ font-weight:700; letter-spacing:2px; font-size:20px }
+.vw-nav{ margin-left:20px; display:flex; gap:14px; align-items:center }
+.vw-nav a{ color:rgba(255,255,255,0.9); text-decoration:none; font-size:14px }
+.vw-actions{ margin-left:auto }
+
+.icon-btn{ background:var(--vw-accent); border:none; padding:8px 10px; border-radius:6px; cursor:pointer; color:#042b23 }
+
+/* Hero */
+.vw-hero{ background:linear-gradient(90deg,#2b5f56, #116a60); color:white; padding:48px 0 36px; text-align:center }
+.hero-inner{ max-width:var(--max-width); margin:0 auto; }
+.vw-hero h1{ margin:0; font-size:34px; font-weight:600 }
+.hero-sub{ margin-top:12px; color:rgba(255,255,255,0.95) }
+
+/* Signup card */
+.signup-card-wrap{ display:flex; justify-content:center; padding:36px 18px 60px }
+.signup-card{ width:100%; max-width:640px; background:var(--card-bg); border-radius:var(--radius); padding:28px; box-shadow:0 8px 30px rgba(6,20,18,0.08) }
+.signup-card h2{ margin:0 0 14px 0; color:var(--text) }
+.signup-form{ display:grid; gap:12px; margin-top:8px }
+.signup-form label{ display:flex; flex-direction:column; font-size:13px; color:var(--muted-text) }
+.signup-form input, .signup-form select{
+  margin-top:8px; padding:10px 12px; border-radius:6px; border:1px solid #d7e6e3; font-size:14px; outline:none;
+}
+.signup-form input:focus, .signup-form select:focus{ border-color:var(--vw-accent); box-shadow:0 0 0 3px rgba(0,178,106,0.06) }
+
+.form-actions{ display:flex; gap:12px; margin-top:6px; align-items:center }
+button.primary{
+  background:var(--vw-accent); color:#052b23; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+button.secondary{
+  background:transparent; color:var(--muted-text); border:1px solid #e2e9e7; padding:9px 14px; border-radius:8px; cursor:pointer;
+}
+
+.terms{ margin-top:14px; font-size:12px; color:#6a8b86 }
+
+/* footer */
+.vw-footer{ background:#042b2c; color:#bfeade; padding:18px 0; margin-top:auto; }
+.vw-footer-inner{ max-width:var(--max-width); margin:0 auto; display:flex; justify-content:space-between; gap:16px; padding:0 18px; font-size:14px }
+.footer-links a{ color:#bfeade; text-decoration:none; margin-left:12px }
+
+/* responsive */
+@media (max-width:700px){
+  .vw-header-inner{ padding:0 12px }
+  .vw-hero h1{ font-size:24px }
+  .signup-card{ padding:18px }
+  .vw-footer-inner{ flex-direction:column; align-items:center; text-align:center; gap:8px }
+}

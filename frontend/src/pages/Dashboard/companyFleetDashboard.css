@@ -1,0 +1,138 @@
+:root {
+  --header-bg: #002733;
+  --accent: #327263;
+  --bg: #f5faf8;
+  --text: #052e2b;
+  --card: #ffffff;
+  --muted: #6d8b88;
+}
+
+/* Base layout */
+.company-dashboard {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.company-navbar {
+  background: var(--header-bg);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.menu-toggle {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.live-sync {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #bfeade;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff7f;
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 6px #00ff7f;
+}
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Main layout */
+.layout {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 100px);
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--header-bg);
+  color: #d4ece5;
+  width: 240px;
+  padding: 20px 12px;
+  transition: width 0.3s ease;
+}
+.sidebar.collapsed {
+  width: 70px;
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d4ece5;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+.sidebar a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.sidebar a.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  background: linear-gradient(180deg, var(--bg), #eef6f3);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Footer */
+.company-footer {
+  background: var(--header-bg);
+  color: #bfeade;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}

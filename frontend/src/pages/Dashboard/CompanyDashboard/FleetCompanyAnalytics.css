@@ -1,0 +1,133 @@
+:root {
+  --header-bg: #002733;
+  --accent: #327263;
+  --bg: #f5faf8;
+  --card: #ffffff;
+  --text: #052e2b;
+  --muted: #6d8b88;
+}
+
+/* Page layout */
+.fleet-analytics-page {
+  background: linear-gradient(180deg, #f5faf8, #eef6f3);
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(3, 26, 24, 0.08);
+  padding: 18px;
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  min-height: calc(100vh - 90px);
+}
+
+/* Header */
+.fleet-analytics-header h2 {
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.fleet-analytics-header p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Hazard Ticker */
+.hazard-ticker {
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 18px 0;
+}
+.ticker-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.ticker-body {
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+/* Charts grid */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+.chart-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 4px 18px rgba(3, 26, 24, 0.08);
+}
+.chart-card h3 {
+  color: var(--accent);
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+/* Risky routes */
+.risky-routes {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 18px;
+  box-shadow: 0 4px 18px rgba(3, 26, 24, 0.08);
+}
+.risky-routes h3 {
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  background: var(--accent);
+  color: white;
+  padding: 8px 10px;
+}
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e6f1ee;
+  font-size: 14px;
+}
+.risk.low {
+  color: #16a34a;
+  font-weight: 600;
+}
+.risk.moderate {
+  color: #facc15;
+  font-weight: 600;
+}
+.risk.high {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Insights button */
+.insights-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.insights-btn-container button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s ease;
+}
+.insights-btn-container button:hover {
+  background: #285d54;
+}

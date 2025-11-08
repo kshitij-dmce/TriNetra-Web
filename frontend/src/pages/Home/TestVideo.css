@@ -1,0 +1,83 @@
+/* All classes are now unique with -unique suffix for this page ONLY */
+.dashcampage-unique { min-height: 100vh; font-family: 'Inter', system-ui; background: #f7fcfa; }
+.dashcammodal-unique-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 1100; backdrop-filter: blur(4px); }
+.dashcammodal-unique { background: white; padding: 26px; border-radius: 13px; max-width: 410px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.19); }
+.dashcammodal-unique-warning-icon { color: #eab308; margin-bottom: 18px; }
+.dashcammodal-unique h2 { color: #04312B; margin-bottom: 15px; }
+.dashcammodal-unique p { color: #64748b; margin-bottom: 18px; }
+.dashcammodal-unique button { background: #036b51; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 500; cursor: pointer; }
+.dashcammodal-unique button:hover { background: #025542; }
+
+.dashcamheader-unique { background: #036b51; padding: 18px 24px; box-shadow: 0 2px 20px rgba(0,0,0,0.13); }
+.dashcamheader-unique-content { max-width: 1200px; margin: 0 auto; }
+.dashcamheader-unique-left { display: flex; align-items: center; gap: 26px; }
+.dashcamheader-unique-backbtn { display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,.1); border: none; color: white; padding: 8px 19px; border-radius: 8px; font-size: 14px; cursor: pointer;}
+.dashcamheader-unique-backbtn:hover { background: rgba(255,255,255,.21);}
+.dashcamheader-unique-title { color: white; font-size: 25px; font-weight: 600; margin-bottom: 5px; }
+
+.dashcammain-unique { padding: 36px 23px; min-height: 600px; }
+.dashcamcontainer-unique { max-width: 870px; margin: 0 auto; }
+.dashcamupload-unique-box { background: white; border: 2px dashed #d2e7da; border-radius: 13px; padding: 44px; text-align: center; margin-bottom: 24px; }
+.dashcamupload-unique-box:hover { border-color: #036b51; background: #eafbf6 }
+.dashcamupload-unique-box svg { color: #036b51; margin-bottom: 17px;}
+.dashcamupload-unique-box h3 { color: #04312B; }
+.dashcamupload-unique-box p { color: #697b7b; }
+
+.dashcamselected-unique-file { margin-top: 18px; padding: 8px 16px; background: #eefaf5; border-radius: 6px; color: #04312B; font-size: 14px; }
+
+.dashcamsubmit-unique-btn { width: 100%; padding: 15px; background: #036b51; color: white; border: none; border-radius: 9px; font-size: 16px; font-weight: 500; cursor: pointer; margin-bottom: 14px; }
+.dashcamsubmit-unique-btn:hover:not(:disabled) { background: #025542; }
+.dashcamsubmit-unique-btn:disabled { background: #8cafa6; cursor: not-allowed; }
+
+.dashcamlocation-unique-btn { background: #018161; color: #fff; border: none; padding: 11px 29px; border-radius: 7px; font-weight: 500; font-size: 16px; cursor: pointer;}
+.dashcamlocation-unique-btn:hover { background: #025542;}
+.dashcamlocation-desc-unique { font-size: 13px; color:#67ae7e; margin-top:7px; }
+.dashcamlocation-confirm-unique { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background:#eafbfa; padding: 8px 14px; border-radius: 8px; color: #04312B; font-size: 15px; font-weight: 500;}
+
+.dashcamanalytics-unique { background: white; border-radius: 13px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.07);}
+.dashcamanalytics-unique-header { display: flex; align-items: center; gap: 15px; margin-bottom: 24px; padding-bottom: 15px; border-bottom: 1.1px solid #d9ebe5;}
+.dashcamanalytics-unique-header h3 { margin: 0; font-size: 20px; color: #04312B; }
+.dashcamanalytics-unique-processingtime { margin-left: auto; font-size: 14px; color: #697b7b; font-family: 'Roboto Mono', monospace; }
+
+.dashcamanalytics-unique-summarystats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 17px; margin-bottom: 24px;}
+.dashcamanalytics-unique-statcard { background: #eafbfa; border-radius: 10px; padding: 18px; display: flex; align-items: center; gap: 17px;}
+.dashcamanalytics-unique-statcard.total svg { color: #036b51; }
+.dashcamanalytics-unique-statcard.critical svg { color: #d81c1c; }
+.dashcamanalytics-unique-statcard h4 { color: #697b7b; margin-bottom: 4px; font-size: 15px;}
+.dashcamanalytics-unique-statcard p { color: #04312B; margin: 0; font-size: 28px; font-weight: 600;}
+.dashcamanalytics-unique-categorysection { margin-bottom: 24px;}
+.dashcamanalytics-unique-categorysection h4 { color: #04312B; }
+.dashcamanalytics-unique-categorygrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;}
+.dashcamanalytics-unique-categorycard { background: #eafbfa; border-radius: 10px; padding: 14px;}
+.category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;}
+.category-name { color: #697b7b; font-size: 14px; text-transform: capitalize;}
+.category-severity { padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: 500;}
+.category-severity.high { background: #fee2e2; color: #d81c1c; }
+.category-severity.medium { background: #fef3c7; color: #eab308;}
+.category-severity.low { background: #dcfce7; color: #36b870;}
+.category-count { color: #04312B; font-size: 24px; font-weight: 600; margin: 0;}
+.dashcamanalytics-unique-detectionstable { background: #eafbfa; border-radius: 10px; padding: 17px;}
+.dashcamanalytics-unique-detectionstable h4 { color: #04312B; margin-bottom: 16px;}
+.dashcamanalytics-unique-detectionstable table { width: 100%; border-collapse: collapse;}
+.dashcamanalytics-unique-detectionstable th { background: #036b51; color: white; font-weight: 500; padding: 12px 16px; font-size: 14px;}
+.dashcamanalytics-unique-detectionstable td { padding: 12px 16px; border-bottom: 1.1px solid #d2e7da; font-size: 15px;}
+.severity-high { color: #d81c1c; font-weight: 500;}
+.severity-medium { color: #eab308; font-weight: 500;}
+.severity-critical { color: #d81c1c; font-weight: 500;}
+.confidence { color: #036b51; font-weight: 500;}
+
+.dashcamalerts-unique-section { margin-top: 32px; }
+.dashcamalerts-unique-list { margin: 0 auto; max-width: 520px; }
+.dashcamalerts-unique-item { background: #f8faff; margin-bottom: 10px; padding: 13px 17px; border-radius: 9px; box-shadow: 0 2px 6px #d2e7da33; display: flex; flex-direction: column; transition: box-shadow 0.8s, transform 0.3s;}
+.dashcamalerts-unique-type { display: flex; align-items: center; gap: 7px; margin-bottom:3px;}
+.dashcamalerts-unique-severity { text-transform: capitalize; font-weight: 600; }
+.dashcamalerts-unique-severity-critical { color: #d81c1c; }
+.dashcamalerts-unique-severity-warning { color: #eab308; }
+.dashcamalerts-unique-box { display: flex; align-items: center; gap: 10px;}
+.dashcamalert-unique-new-anim { animation: popAlert 1s ease; }
+.dashcamalerts-unique-pop { animation: popAlert 0.7s ease;}
+@keyframes popAlert { 0%{box-shadow:0 0 0 #0fb39f77;transform:scale(0.95);}60%{box-shadow:0 0 9px #0fb39f77;transform:scale(1.07);}100%{box-shadow:0 2px 6px #d2e7da33;transform:scale(1.00);} }
+@media (max-width: 768px) {
+  .dashcammain-unique { padding: 18px 5px;}
+  .dashcamcontainer-unique { max-width: 100%; }
+}

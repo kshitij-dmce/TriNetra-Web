@@ -1,0 +1,126 @@
+# =========================================
+# 🚀 TriNetra Project Git Ignore
+# React + Vite + Firebase + Node.js
+# =========================================
+
+# -----------------------------
+# Logs & Debug
+# -----------------------------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+debug.log*
+
+# -----------------------------
+# Dependency directories
+# -----------------------------
+node_modules/
+.pnpm-store/
+
+# -----------------------------
+# Build output
+# -----------------------------
+dist/
+dist-ssr/
+build/
+out/
+coverage/
+.cache/
+.vite/
+temp/
+.tmp/
+*.local
+
+# -----------------------------
+# Environment variables
+# -----------------------------
+
+
+# -----------------------------
+# Firebase & Service files
+# -----------------------------
+.firebase/
+.firebaserc
+.storage/
+firebase-debug.log
+firebase-debug.*
+database.rules.json
+firestore.indexes.json
+firestore.rules
+
+# -----------------------------
+# OS / System files
+# -----------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# -----------------------------
+# Editor / IDE files
+# -----------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# -----------------------------
+# Tests & temporary files
+# -----------------------------
+__tests__/
+test-results/
+*.spec.js
+*.test.js
+jest-cache/
+jest-html-reporters-*
+cypress/videos/
+cypress/screenshots/
+
+# -----------------------------
+# Local server / backend
+# -----------------------------
+# /.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.local
+*.pid
+*.seed
+*.pid.lock
+*.sqlite
+
+# -----------------------------
+# Miscellaneous
+# -----------------------------
+*.tgz
+*.zip
+*.tar
+*.gz
+*.bak
+*.tmp
+*.log.old
+
+# -----------------------------
+# TypeScript / JS caches
+# -----------------------------
+*.tsbuildinfo
+*.rpt2_cache/
+.next/
+.cache-loader/
+.parcel-cache/
+
+# -----------------------------
+# VSCode history & local saves
+# -----------------------------
+.history/
+local.env
+cloudinaryConfig.js

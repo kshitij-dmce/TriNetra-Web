@@ -1,0 +1,238 @@
+:root {
+  --header-bg: #1a2f2c;
+  --accent: #327263;
+  --text: #1e293b;
+  --muted: #64748b;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ==============================
+   MAIN PAGE CONTAINER
+============================== */
+.analytics-page {
+  min-height: 100vh;
+  background: #f8faff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 24px;
+  color: var(--text);
+}
+
+/* ==============================
+   HEADER SECTION
+============================== */
+.analytics-header {
+  background: var(--header-bg);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+
+/* Header Left (Back Button + Title) */
+.analytics-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Back Button */
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-2px);
+}
+.back-btn svg {
+  stroke: #ffffff;
+  width: 18px;
+  height: 18px;
+}
+
+/* Header Title */
+.analytics-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==============================
+   FILTERS DROPDOWNS
+============================== */
+.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.filters select {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.filters select:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #b0e6d4;
+}
+
+/* ==============================
+   CHART GRID & CARDS
+============================== */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.chart-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.chart-card h3 {
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ==============================
+   TOOLTIP STYLING (RECHARTS)
+============================== */
+.recharts-tooltip-wrapper {
+  background: white !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+}
+
+.recharts-default-tooltip {
+  background-color: white !important;
+  border-radius: 8px !important;
+  border: none !important;
+  padding: 8px 12px !important;
+}
+
+/* ==============================
+   LEGEND SECTION
+============================== */
+.legend-section {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.legend-section h4 {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.legend-items .dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+/* Color Dots */
+.dot.safe {
+  background: #16a34a;
+}
+.dot.caution {
+  background: #facc15;
+}
+.dot.critical {
+  background: #dc2626;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+@media (max-width: 900px) {
+  .analytics-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .analytics-header-left {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .filters {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-card h3 {
+    font-size: 15px;
+  }
+}
+
+/* ==============================
+   TOOLTIP HOVER TEXT (OPTIONAL)
+============================== */
+.back-btn::after {
+  content: "Back";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  top: -30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.back-btn:hover::after {
+  opacity: 1;
+}
