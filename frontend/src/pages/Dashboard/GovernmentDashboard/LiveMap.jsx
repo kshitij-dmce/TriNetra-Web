@@ -5,7 +5,7 @@ import { ChevronLeft, RefreshCcw, AlertTriangle, MapPin } from "lucide-react";
 import Papa from "papaparse";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "./liveMap.css";
+import "./LiveMap.css";
 
 const { BaseLayer } = LayersControl;
 
