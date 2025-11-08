@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
-  ChevronLeft, Clock, User, Filter,
+  ChevronLeft, Clock, Filter,
   Download, Share2, BarChart2, PieChart as PieIcon,
   Map, TrendingUp 
 } from "lucide-react";
@@ -15,7 +15,7 @@ import "leaflet.heat";
 import Papa from "papaparse";
 import "./AnalyticsTrends.css";
 
-// Custom hook to render heatmap layer
+// 🔥 Heatmap Layer Component
 function HeatmapLayer({ points }) {
   const map = useMap();
   useEffect(() => {
@@ -45,7 +45,6 @@ export default function AnalyticsTrends() {
 
   const [heatPoints, setHeatPoints] = useState([]);
 
-  // Load city data for heatmap
   useEffect(() => {
     Papa.parse("/road_issue_dataset_4000.csv", {
       download: true,
@@ -53,7 +52,7 @@ export default function AnalyticsTrends() {
       skipEmptyLines: true,
       complete: (results) => {
         const parsed = results.data
-          .map((row, index) => {
+          .map((row) => {
             const lat = parseFloat(row.Latitude);
             const lon = parseFloat(row.Longitude);
             const count = parseInt(row.Count) || 1;
@@ -66,7 +65,7 @@ export default function AnalyticsTrends() {
     });
   }, []);
 
-  // Dummy chart data
+  // Dummy Data
   const trendData = [
     { date: "Week 1", hazards: 24 },
     { date: "Week 2", hazards: 36 },
@@ -91,47 +90,44 @@ export default function AnalyticsTrends() {
   const COLORS = ["#16a34a", "#facc15", "#f97316", "#dc2626"];
 
   return (
-    <div className="analytics-page">
+    <div className="at-page">
       {/* Header */}
-      <header className="analytics-header">
-        <div className="header-content">
-          <div className="header-left">
-            <button className="back-btn" onClick={() => navigate(-1)}>
+      <header className="at-header">
+        <div className="at-header-container">
+          <div className="at-header-left">
+            <button className="at-back-btn" onClick={() => navigate(-1)}>
               <ChevronLeft size={20} />
             </button>
-            <div className="header-info">
-              <h1 className="header-title">Analytics & Trends</h1>
+            <div className="at-header-text">
+              <h1>Analytics & Trends</h1>
+              <p>Data Visualization and Hotspot Monitoring</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="analytics-main">
-        <div className="content-container">
+      <main className="at-main">
+        <div className="at-content">
           {/* Filters */}
-          <div className="filters-section">
-            <div className="filters-header">
-              <div className="filters-title">
+          <div className="at-filters">
+            <div className="at-filters-header">
+              <div className="at-filters-title">
                 <Filter size={16} />
                 <h3>Filter Analytics</h3>
               </div>
-              <div className="filters-actions">
-                <button className="action-btn">
-                  <Download size={16} />
-                  Export
+              <div className="at-filters-actions">
+                <button className="at-action-btn">
+                  <Download size={16} /> Export
                 </button>
-                <button className="action-btn">
-                  <Share2 size={16} />
-                  Share
+                <button className="at-action-btn">
+                  <Share2 size={16} /> Share
                 </button>
               </div>
             </div>
-            <div className="analytics-filters">
+            <div className="at-filters-body">
               <select
                 value={filters.region}
-                onChange={(e) =>
-                  setFilters({ ...filters, region: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, region: e.target.value })}
               >
                 <option>All Regions</option>
                 <option>Airoli</option>
@@ -141,9 +137,7 @@ export default function AnalyticsTrends() {
 
               <select
                 value={filters.vehicle}
-                onChange={(e) =>
-                  setFilters({ ...filters, vehicle: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, vehicle: e.target.value })}
               >
                 <option>All Vehicles</option>
                 <option>Virtus</option>
@@ -153,9 +147,7 @@ export default function AnalyticsTrends() {
 
               <select
                 value={filters.severity}
-                onChange={(e) =>
-                  setFilters({ ...filters, severity: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, severity: e.target.value })}
               >
                 <option>All Severity</option>
                 <option>Low</option>
@@ -166,9 +158,7 @@ export default function AnalyticsTrends() {
 
               <select
                 value={filters.time}
-                onChange={(e) =>
-                  setFilters({ ...filters, time: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, time: e.target.value })}
               >
                 <option>Weekly</option>
                 <option>Monthly</option>
@@ -177,11 +167,10 @@ export default function AnalyticsTrends() {
             </div>
           </div>
 
-          {/* Charts Grid */}
-          <div className="charts-grid">
-            {/* Hazard Frequency Chart */}
-            <div className="chart-card">
-              <div className="chart-header">
+          {/* Charts */}
+          <div className="at-grid">
+            <div className="at-card">
+              <div className="at-card-header">
                 <TrendingUp size={20} />
                 <h3>Hazard Frequency Over Time</h3>
               </div>
@@ -191,19 +180,13 @@ export default function AnalyticsTrends() {
                   <XAxis dataKey="date" />
                   <YAxis />
                   <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="hazards"
-                    stroke="#036b51"
-                    strokeWidth={2}
-                  />
+                  <Line type="monotone" dataKey="hazards" stroke="#036b51" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
-            {/* Hotspot Detection Chart */}
-            <div className="chart-card">
-              <div className="chart-header">
+            <div className="at-card">
+              <div className="at-card-header">
                 <BarChart2 size={20} />
                 <h3>Hotspot Detection</h3>
               </div>
@@ -218,9 +201,8 @@ export default function AnalyticsTrends() {
               </ResponsiveContainer>
             </div>
 
-            {/* Severity Distribution Chart */}
-            <div className="chart-card">
-              <div className="chart-header">
+            <div className="at-card">
+              <div className="at-card-header">
                 <PieIcon size={20} />
                 <h3>Hazard Severity Distribution</h3>
               </div>
@@ -230,17 +212,12 @@ export default function AnalyticsTrends() {
                     data={severityData}
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
                     outerRadius={80}
-                    fill="#8884d8"
                     dataKey="value"
                     label={({ name }) => name}
                   >
                     {severityData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -249,21 +226,16 @@ export default function AnalyticsTrends() {
               </ResponsiveContainer>
             </div>
 
-            {/* City-Wide Heatmap */}
-            <div className="chart-card">
-              <div className="chart-header">
+            <div className="at-card">
+              <div className="at-card-header">
                 <Map size={20} />
                 <h3>City-Wide Heatmap</h3>
               </div>
-              <div style={{ height: "300px", width: "100%", borderRadius: "8px", overflow: "hidden" }}>
-                <MapContainer
-                  center={[22.9734, 78.6569]} // Center of India
-                  zoom={5}
-                  style={{ height: "100%", width: "100%" }}
-                >
+              <div className="at-map">
+                <MapContainer center={[22.9734, 78.6569]} zoom={5} style={{ height: "100%", width: "100%" }}>
                   <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; OpenStreetMap contributors'
+                    attribution="&copy; OpenStreetMap contributors"
                   />
                   <HeatmapLayer points={heatPoints} />
                 </MapContainer>
@@ -273,10 +245,10 @@ export default function AnalyticsTrends() {
         </div>
       </main>
 
-      <footer className="analytics-footer">
-        <div className="footer-content">
+      <footer className="at-footer">
+        <div className="at-footer-container">
           <span>© 2025 TriNetra | Volkswagen Analytics Platform</span>
-          <div className="footer-links">
+          <div className="at-footer-links">
             <a href="/help">Help Center</a>
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>

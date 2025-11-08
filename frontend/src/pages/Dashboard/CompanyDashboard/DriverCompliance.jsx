@@ -4,9 +4,13 @@ import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis,
   PolarRadiusAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
-import { 
-  ShieldCheck, FileText, Users, ChevronLeft,
-  Download, Share2 
+import {
+  ShieldCheck,
+  FileText,
+  Users,
+  ChevronLeft,
+  Download,
+  Share2,
 } from "lucide-react";
 import "./DriverCompliance.css";
 
@@ -53,36 +57,49 @@ export default function DriverCompliance() {
   ];
 
   return (
-    <div className="compliance-page">
+    <div className="dc-page">
       {/* Header */}
-      <header className="compliance-header">
-        <div className="header-content">
-          <div className="header-left">
-            <button className="back-btn" onClick={() => navigate(-1)}>
-                         <ChevronLeft size={20} />
-                       </button>
-            <h1 className="header-title">Driver Behavior & Compliance</h1>
+      <header className="dc-header">
+        <div className="dc-header-container">
+          <div className="dc-header-left">
+            <button className="dc-back-btn" onClick={() => navigate(-1)}>
+              <ChevronLeft size={20} />
+            </button>
+            <div className="dc-header-text">
+              <h1>Driver Behavior & Compliance</h1>
+              <p>Performance and Data Protection Monitoring</p>
+            </div>
           </div>
-          
         </div>
       </header>
 
-      <main className="compliance-main">
-        <div className="content-container">
-          {/* Metrics Cards */}
-          <div className="driver-metrics">
+      {/* Main Section */}
+      <main className="dc-main">
+        <div className="dc-content">
+          {/* Metric Cards */}
+          <div className="dc-metrics">
             {driverMetrics.map((m, i) => (
-              <div className="metric-card" key={i}>
+              <div className="dc-card" key={i}>
                 <h4>{m.metric}</h4>
                 <p>{m.value}</p>
               </div>
             ))}
           </div>
 
-          {/* Radar Chart Section */}
-          <div className="chart-section">
-            <div className="chart-card">
-              <h3>Driver Performance Radar</h3>
+          {/* Radar Chart */}
+          <div className="dc-chart">
+            <div className="dc-chart-card">
+              <div className="dc-chart-header">
+                <h3>Driver Performance Radar</h3>
+                <div className="dc-chart-actions">
+                  <button className="dc-action-btn">
+                    <Download size={14} /> Export
+                  </button>
+                  <button className="dc-action-btn">
+                    <Share2 size={14} /> Share
+                  </button>
+                </div>
+              </div>
               <ResponsiveContainer width="100%" height={300}>
                 <RadarChart data={radarData}>
                   <PolarGrid />
@@ -102,8 +119,8 @@ export default function DriverCompliance() {
           </div>
 
           {/* Compliance Table */}
-          <div className="compliance-section">
-            <div className="table-header">
+          <div className="dc-table">
+            <div className="dc-table-header">
               <Users size={18} />
               <h3>Driver Data Compliance Table</h3>
             </div>
@@ -124,7 +141,11 @@ export default function DriverCompliance() {
                     <td>{d.pii}</td>
                     <td>{d.dataSync}</td>
                     <td>{d.alertDelivery}</td>
-                    <td className={d.compliance.includes("⚠️") ? "review" : "certified"}>
+                    <td
+                      className={
+                        d.compliance.includes("⚠️") ? "dc-review" : "dc-certified"
+                      }
+                    >
                       {d.compliance}
                     </td>
                   </tr>
@@ -134,13 +155,13 @@ export default function DriverCompliance() {
           </div>
 
           {/* Privacy Badge */}
-          <div className="privacy-badge">
+          <div className="dc-privacy">
             <ShieldCheck size={20} />
             <p>Data Privacy Certified ✅</p>
           </div>
 
           {/* Export Button */}
-          <div className="export-btn-container">
+          <div className="dc-export">
             <button onClick={() => alert("Exporting compliance report...")}>
               <FileText size={16} /> Export Compliance Report (PDF)
             </button>
@@ -148,10 +169,11 @@ export default function DriverCompliance() {
         </div>
       </main>
 
-      <footer className="compliance-footer">
-        <div className="footer-content">
+      {/* Footer */}
+      <footer className="dc-footer">
+        <div className="dc-footer-container">
           <span>© 2025 TriNetra | Volkswagen Driver Analytics</span>
-          <div className="footer-links">
+          <div className="dc-footer-links">
             <a href="/help">Help Center</a>
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>

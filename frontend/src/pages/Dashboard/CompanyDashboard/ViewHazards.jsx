@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import "./ViewHazards.css";
 
-// 🗺️ Address API (non-blocking)
+// 🗺️ Reverse Geocoding (Non-blocking)
 const getAddressFromLatLng = async (lat, lng) => {
   try {
     const resp = await fetch(
@@ -27,17 +27,15 @@ const getAddressFromLatLng = async (lat, lng) => {
   }
 };
 
-// 🕒 Timestamp Formatter (Firestore or string)
+// 🕒 Timestamp Formatter
 const formatTimestamp = (timestamp) => {
   if (!timestamp) return "";
   try {
     let dateObj;
     if (typeof timestamp.toDate === "function") {
       dateObj = timestamp.toDate();
-    } else if (typeof timestamp === "string" || typeof timestamp === "number") {
-      dateObj = new Date(timestamp);
     } else {
-      return "";
+      dateObj = new Date(timestamp);
     }
     return dateObj.toLocaleString("en-IN", {
       day: "2-digit",
@@ -53,11 +51,11 @@ const formatTimestamp = (timestamp) => {
   }
 };
 
-// 💀 Skeleton Row Component
+// 💀 Skeleton Loader
 const SkeletonRow = () => (
-  <tr className="skeleton-row">
+  <tr className="vh-skeleton-row">
     <td colSpan="6">
-      <div className="skeleton shimmer"></div>
+      <div className="vh-skeleton shimmer"></div>
     </td>
   </tr>
 );
@@ -68,17 +66,9 @@ export default function ViewHazards() {
   const [hazards, setHazards] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🚘 Vehicle List
   const vehicleOptions = ["Virtus", "Taigun", "Tiguan", "Golf GTI", "Virtus Chrome"];
+  const [filters, setFilters] = useState({ vehicle: "all", type: "all", date: "" });
 
-  // 🔍 Filters
-  const [filters, setFilters] = useState({
-    vehicle: "all",
-    type: "all",
-    date: "",
-  });
-
-  // 🧩 Fetch hazards (fast + async address)
   useEffect(() => {
     const fetchHazards = async () => {
       setLoading(true);
@@ -86,14 +76,8 @@ export default function ViewHazards() {
 
       try {
         const { initializeApp } = await import("firebase/app");
-        const {
-          getFirestore,
-          collection,
-          getDocs,
-          orderBy,
-          query,
-          limit,
-        } = await import("firebase/firestore");
+        const { getFirestore, collection, getDocs, orderBy, query, limit } =
+          await import("firebase/firestore");
 
         const firebaseConfig = {
           apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -107,16 +91,18 @@ export default function ViewHazards() {
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const q = query(collection(db, "live_alerts"), orderBy("timestamp", "desc"), limit(100));
+        const q = query(
+          collection(db, "live_alerts"),
+          orderBy("timestamp", "desc"),
+          limit(100)
+        );
         const querySnapshot = await getDocs(q);
 
-        // Create hazard list (no address yet)
         hazardList = querySnapshot.docs.map((doc) => {
           const d = doc.data();
           return {
             id: doc.id,
-            vehicle:
-              vehicleOptions[Math.floor(Math.random() * vehicleOptions.length)],
+            vehicle: vehicleOptions[Math.floor(Math.random() * vehicleOptions.length)],
             lat: d.lat,
             lng: d.long,
             type: d.alert_type || "Unknown",
@@ -124,15 +110,13 @@ export default function ViewHazards() {
             severity: d.severity || "Medium",
             status: d.status || "Pending",
             confidence: d.confidence || Math.floor(Math.random() * 11) + 89,
-            location: "", // to be filled later
+            location: "",
             image: "https://source.unsplash.com/400x200/?road,traffic",
           };
         });
 
-        // Set immediately — show list without waiting for addresses
         setHazards(hazardList);
 
-        // 🚀 Asynchronously fill addresses
         hazardList.forEach(async (h, index) => {
           const addr = await getAddressFromLatLng(h.lat, h.lng);
           setHazards((prev) => {
@@ -145,65 +129,57 @@ export default function ViewHazards() {
         console.error("❌ Firestore Fetch Error:", err);
       }
 
-      // Show skeleton for 1.5s max
       setTimeout(() => setLoading(false), 1500);
     };
 
     fetchHazards();
   }, []);
 
-  // ⚙️ Filter logic (case-insensitive)
   const filtered = hazards.filter((h) => {
-    const vehicleMatch =
-      filters.vehicle === "all" ||
-      h.vehicle.toLowerCase() === filters.vehicle.toLowerCase();
-
-    const typeMatch =
-      filters.type === "all" ||
-      h.type.toLowerCase() === filters.type.toLowerCase();
-
-    const dateMatch =
-      !filters.date ||
-      (h.time && h.time.toLowerCase().includes(filters.date.toLowerCase()));
-
-    return vehicleMatch && typeMatch && dateMatch;
+    const vMatch = filters.vehicle === "all" || h.vehicle === filters.vehicle;
+    const tMatch = filters.type === "all" || h.type === filters.type;
+    const dMatch = !filters.date || h.time?.includes(filters.date);
+    return vMatch && tMatch && dMatch;
   });
 
   return (
-    <div className="hazards-page">
+    <div className="vh-page">
       {/* Header */}
-      <header className="hazards-header">
-        <div className="header-content">
-          <div className="header-left">
-            <button className="back-btn" onClick={() => navigate(-1)}>
+      <header className="vh-header">
+        <div className="vh-header-container">
+          <div className="vh-header-left">
+            <button className="vh-back-btn" onClick={() => navigate(-1)}>
               <ChevronLeft size={20} />
             </button>
-            <div className="header-title">View Hazards</div>
+            <div className="vh-header-text">
+              <h1>View Hazards</h1>
+              <p>Live Incident Monitoring Dashboard</p>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="hazards-main">
-        <div className="content-container">
-          {/* Stats Summary */}
-          <div className="stats-summary">
-            <div className="stat-card">
+      <main className="vh-main">
+        <div className="vh-content">
+          {/* Stats */}
+          <div className="vh-stats">
+            <div className="vh-card">
               <AlertTriangle size={20} />
-              <div className="stat-info">
+              <div className="vh-info">
                 <h4>Total Hazards</h4>
                 <p>{hazards.length}</p>
               </div>
             </div>
-            <div className="stat-card warning">
+            <div className="vh-card warning">
               <Clock size={20} />
-              <div className="stat-info">
+              <div className="vh-info">
                 <h4>Pending Review</h4>
                 <p>{hazards.filter((h) => h.status === "Pending").length}</p>
               </div>
             </div>
-            <div className="stat-card success">
+            <div className="vh-card success">
               <Check size={20} />
-              <div className="stat-info">
+              <div className="vh-info">
                 <h4>Resolved</h4>
                 <p>{hazards.filter((h) => h.status === "Resolved").length}</p>
               </div>
@@ -211,46 +187,38 @@ export default function ViewHazards() {
           </div>
 
           {/* Filters */}
-          <div className="filters-section">
-            <div className="filters-header">
-              <div className="filters-title">
+          <div className="vh-filters">
+            <div className="vh-filters-header">
+              <div className="vh-filters-title">
                 <Filter size={16} />
                 <h3>Filter Hazards</h3>
               </div>
               <button
-                className="clear-filters"
-                onClick={() =>
-                  setFilters({ vehicle: "all", type: "all", date: "" })
-                }
+                className="vh-clear-btn"
+                onClick={() => setFilters({ vehicle: "all", type: "all", date: "" })}
               >
                 Clear Filters
               </button>
             </div>
-            <div className="hazard-filters">
+
+            <div className="vh-filters-body">
               <select
                 value={filters.vehicle}
-                onChange={(e) =>
-                  setFilters({ ...filters, vehicle: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, vehicle: e.target.value })}
               >
                 <option value="all">All Vehicles</option>
                 {vehicleOptions.map((v) => (
-                  <option key={v} value={v}>
-                    {v}
-                  </option>
+                  <option key={v}>{v}</option>
                 ))}
               </select>
 
               <select
                 value={filters.type}
-                onChange={(e) =>
-                  setFilters({ ...filters, type: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, type: e.target.value })}
               >
                 <option value="all">All Hazard Types</option>
                 <option value="Pothole">Pothole</option>
                 <option value="Debris">Debris</option>
-                <option value="Stalled Vehicle">Stalled Vehicle</option>
                 <option value="Water Logged">Water Logged</option>
                 <option value="Unknown">Unknown</option>
               </select>
@@ -258,15 +226,13 @@ export default function ViewHazards() {
               <input
                 type="date"
                 value={filters.date}
-                onChange={(e) =>
-                  setFilters({ ...filters, date: e.target.value })
-                }
+                onChange={(e) => setFilters({ ...filters, date: e.target.value })}
               />
             </div>
           </div>
 
           {/* Data Table */}
-          <div className="hazard-table-wrap">
+          <div className="vh-table">
             {loading ? (
               <table>
                 <tbody>
@@ -291,21 +257,19 @@ export default function ViewHazards() {
                   {filtered.map((h) => (
                     <tr key={h.id} onClick={() => setSelectedHazard(h)}>
                       <td>{h.vehicle}</td>
-                      <td>
-                        <div className="location-cell">
-                          <MapPin size={14} />
-                          {h.location || `${h.lat.toFixed(4)}, ${h.lng.toFixed(4)}`}
-                        </div>
+                      <td className="vh-location">
+                        <MapPin size={14} />
+                        {h.location || `${h.lat.toFixed(4)}, ${h.lng.toFixed(4)}`}
                       </td>
                       <td>{h.type}</td>
                       <td>{h.time}</td>
                       <td>
-                        <span className={`severity ${h.severity.toLowerCase()}`}>
+                        <span className={`vh-severity ${h.severity.toLowerCase()}`}>
                           {h.severity}
                         </span>
                       </td>
                       <td>
-                        <span className={`status ${h.status.toLowerCase()}`}>
+                        <span className={`vh-status ${h.status.toLowerCase()}`}>
                           {h.status}
                         </span>
                       </td>
@@ -315,64 +279,31 @@ export default function ViewHazards() {
               </table>
             )}
             {!loading && filtered.length === 0 && (
-              <div className="no-results">
-                No hazards found for your filters.
-              </div>
+              <div className="vh-no-results">No hazards found for filters.</div>
             )}
           </div>
         </div>
       </main>
 
-      {/* Hazard Details Panel */}
+      {/* Hazard Detail Panel */}
       {selectedHazard && (
-        <div
-          className="hazard-panel-overlay"
-          onClick={() => setSelectedHazard(null)}
-        >
-          <div className="hazard-panel" onClick={(e) => e.stopPropagation()}>
-            <div className="panel-header">
-              <h3>{selectedHazard.type} Detected</h3>
-              <button
-                className="close-btn"
-                onClick={() => setSelectedHazard(null)}
-              >
+        <div className="vh-panel-overlay" onClick={() => setSelectedHazard(null)}>
+          <div className="vh-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="vh-panel-header">
+              <h3>{selectedHazard.type}</h3>
+              <button className="vh-close-btn" onClick={() => setSelectedHazard(null)}>
                 <X size={18} />
               </button>
             </div>
-            <div className="panel-body">
-              <div className="hazard-image">
-                <img src={selectedHazard.image} alt="hazard" />
-                <span
-                  className={`severity-badge ${selectedHazard.severity.toLowerCase()}`}
-                >
-                  {selectedHazard.severity} Severity
-                </span>
-              </div>
-              <div className="hazard-details">
-                <div className="detail-item">
-                  <MapPin size={16} />
-                  <div>
-                    <strong>Location</strong>
-                    <span>
-                      {selectedHazard.location ||
-                        `${selectedHazard.lat.toFixed(4)}, ${selectedHazard.lng.toFixed(4)}`}
-                    </span>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <Clock size={16} />
-                  <div>
-                    <strong>Detected At</strong>
-                    <span>{selectedHazard.time}</span>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <AlertTriangle size={16} />
-                  <div>
-                    <strong>Confidence Score</strong>
-                    <span>{selectedHazard.confidence}%</span>
-                  </div>
-                </div>
+            <div className="vh-panel-body">
+              <img src={selectedHazard.image} alt="hazard" className="vh-img" />
+              <span className={`vh-badge ${selectedHazard.severity.toLowerCase()}`}>
+                {selectedHazard.severity} Severity
+              </span>
+              <div className="vh-detail">
+                <p><MapPin size={14}/> {selectedHazard.location}</p>
+                <p><Clock size={14}/> {selectedHazard.time}</p>
+                <p><AlertTriangle size={14}/> Confidence: {selectedHazard.confidence}%</p>
               </div>
             </div>
           </div>

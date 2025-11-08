@@ -191,7 +191,7 @@ export default function GovernmentDashboard() {
                                     </button>
                                     <button 
                                         className="action-btn info"
-                                        onClick={() => navigate('/dashboard/fleet/analytics')}
+                                        onClick={() => navigate('/dashboard/fleet/fleet-analytics')}
                                     >
                                         <BarChart2 size={18} />
                                         Fleet Analytics

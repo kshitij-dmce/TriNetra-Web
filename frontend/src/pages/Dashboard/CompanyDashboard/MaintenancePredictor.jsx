@@ -1,11 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
 } from "recharts";
-import { 
-  Wrench, AlertTriangle, FileText, ChevronLeft,
-  Download, Share2 
+import {
+  Wrench,
+  AlertTriangle,
+  FileText,
+  ChevronLeft,
+  Download,
+  Share2,
 } from "lucide-react";
 import "./MaintenancePredictor.css";
 
@@ -27,30 +37,30 @@ export default function MaintenancePredictor() {
   ];
 
   return (
-    <div className="maintenance-page">
+    <div className="mp-page">
       {/* Header */}
-      <header className="maintenance-header">
-        <div className="header-content">
-          <div className="header-left">
-            <button className="back-btn" onClick={() => navigate(-1)}>
+      <header className="mp-header">
+        <div className="mp-header-container">
+          <div className="mp-header-left">
+            <button className="mp-back-btn" onClick={() => navigate(-1)}>
               <ChevronLeft size={20} />
             </button>
-            <div className="header-info">
-              <h1 className="header-title">Maintenance Predictor</h1>
-            
+            <div className="mp-header-text">
+              <h1>Maintenance Predictor</h1>
+              <p>Forecasting Vehicle Health & Performance Risks</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="maintenance-main">
-        <div className="content-container">
+      <main className="mp-main">
+        <div className="mp-content">
           {/* Summary Cards */}
-          <div className="maintenance-summary">
+          <div className="mp-summary">
             {maintenanceStats.map((m) => (
               <div
                 key={m.id}
-                className="maintenance-card"
+                className="mp-card"
                 style={{ borderTop: `4px solid ${m.color}` }}
               >
                 <h3>{m.title}</h3>
@@ -60,9 +70,19 @@ export default function MaintenancePredictor() {
           </div>
 
           {/* Chart Section */}
-          <div className="chart-section">
-            <div className="chart-card">
-              <h3>Avg Time Between Services vs Hazard Exposure</h3>
+          <div className="mp-chart">
+            <div className="mp-chart-card">
+              <div className="mp-chart-header">
+                <h3>Avg Service Interval vs Hazard Exposure</h3>
+                <div className="mp-chart-actions">
+                  <button className="mp-action-btn">
+                    <Download size={14} /> Export
+                  </button>
+                  <button className="mp-action-btn">
+                    <Share2 size={14} /> Share
+                  </button>
+                </div>
+              </div>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={trendData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -91,7 +111,7 @@ export default function MaintenancePredictor() {
           </div>
 
           {/* Maintenance Table */}
-          <div className="maintenance-table">
+          <div className="mp-table">
             <h3>Vehicle Maintenance Forecast</h3>
             <table>
               <thead>
@@ -108,9 +128,9 @@ export default function MaintenancePredictor() {
                   <td>Volkswagen Virtus</td>
                   <td>Feb 12, 2025</td>
                   <td>Apr 20, 2025</td>
-                  <td className="risk high">High</td>
+                  <td className="mp-risk high">High</td>
                   <td>
-                    <button className="action-btn">
+                    <button className="mp-action-btn">
                       <AlertTriangle size={14} /> Schedule
                     </button>
                   </td>
@@ -119,9 +139,9 @@ export default function MaintenancePredictor() {
                   <td>Volkswagen Taigun</td>
                   <td>Mar 5, 2025</td>
                   <td>May 22, 2025</td>
-                  <td className="risk medium">Medium</td>
+                  <td className="mp-risk medium">Medium</td>
                   <td>
-                    <button className="action-btn">
+                    <button className="mp-action-btn">
                       <Wrench size={14} /> Review
                     </button>
                   </td>
@@ -130,9 +150,9 @@ export default function MaintenancePredictor() {
                   <td>Volkswagen Tiguan</td>
                   <td>Jan 28, 2025</td>
                   <td>Apr 2, 2025</td>
-                  <td className="risk critical">Critical</td>
+                  <td className="mp-risk critical">Critical</td>
                   <td>
-                    <button className="action-btn">
+                    <button className="mp-action-btn">
                       <FileText size={14} /> Report
                     </button>
                   </td>
@@ -141,8 +161,8 @@ export default function MaintenancePredictor() {
             </table>
           </div>
 
-          {/* Generate Report */}
-          <div className="report-btn-container">
+          {/* Generate Report Button */}
+          <div className="mp-report">
             <button onClick={() => alert("Generating Maintenance Report...")}>
               <FileText size={16} /> Generate Maintenance Report (PDF)
             </button>
@@ -150,10 +170,11 @@ export default function MaintenancePredictor() {
         </div>
       </main>
 
-      <footer className="maintenance-footer">
-        <div className="footer-content">
+      {/* Footer */}
+      <footer className="mp-footer">
+        <div className="mp-footer-container">
           <span>© 2025 TriNetra | Volkswagen Maintenance Analytics</span>
-          <div className="footer-links">
+          <div className="mp-footer-links">
             <a href="/help">Help Center</a>
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>
