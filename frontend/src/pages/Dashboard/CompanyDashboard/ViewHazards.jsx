@@ -258,9 +258,12 @@ export default function ViewHazards() {
                     <tr key={h.id} onClick={() => setSelectedHazard(h)}>
                       <td>{h.vehicle}</td>
                       <td className="vh-location">
-                        <MapPin size={14} />
-                        {h.location || `${h.lat.toFixed(4)}, ${h.lng.toFixed(4)}`}
-                      </td>
+  <MapPin size={14} />
+  {h.location ||
+    (typeof h.lat === "number" && typeof h.lng === "number"
+      ? `${h.lat.toFixed(4)}, ${h.lng.toFixed(4)}`
+      : "Unknown")}
+</td>
                       <td>{h.type}</td>
                       <td>{h.time}</td>
                       <td>
