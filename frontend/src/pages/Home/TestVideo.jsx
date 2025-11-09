@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Upload, MapPin, Image as ImageIcon, Video } from "lucide-react";
+import { Upload, MapPin, Image as ImageIcon, Video, X } from "lucide-react";
 import "./TestVideo.css";
 
 const FLASK_FRAME_URL = "https://decomposed-cacophonically-wen.ngrok-free.dev/frame";
@@ -15,8 +15,13 @@ export default function TestVideo() {
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
   const [noHazard, setNoHazard] = useState(false);
+  const [showNote, setShowNote] = useState(true);
 
-  // 📍 Get location
+  useEffect(() => {
+    // Automatically show note when page loads
+    setShowNote(true);
+  }, []);
+
   const handleGetLocation = () => {
     if (!navigator.geolocation) return alert("Geolocation not supported.");
     navigator.geolocation.getCurrentPosition(
@@ -26,7 +31,6 @@ export default function TestVideo() {
     );
   };
 
-  // 📁 Handle file selection
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -58,7 +62,6 @@ export default function TestVideo() {
     setNoHazard(false);
   };
 
-  // 🖼 Process single image
   const processImage = async () => {
     if (!selectedFile || !location) return;
     setIsProcessing(true);
@@ -97,7 +100,6 @@ export default function TestVideo() {
     }
   };
 
-  // 🎥 Process video (1 FPS)
   const processVideo = async () => {
     if (!selectedFile || !location) return;
     setIsProcessing(true);
@@ -179,6 +181,58 @@ export default function TestVideo() {
 
   return (
     <div className="dashcampage-unique">
+      {/* 🌟 Note Popup Card */}
+      {showNote && (
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#fff3cd",
+            color: "#856404",
+            border: "1px solid #ffeeba",
+            borderRadius: "12px",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            padding: "18px 20px",
+            maxWidth: "450px",
+            zIndex: 9999,
+            textAlign: "left",
+            animation: "fadeIn 0.3s ease-in-out",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <strong style={{ fontSize: "16px" }}>📢 Important Note</strong>
+            <X
+              size={18}
+              style={{ cursor: "pointer", color: "#856404" }}
+              onClick={() => setShowNote(false)}
+            />
+          </div>
+          <p style={{ marginTop: "8px", fontSize: "14px", lineHeight: "1.5" }}>
+            For the <b>Prototype Submission Phase</b>, this dashboard allows you to test our deployed models
+            and view results directly here. In real-time, this process will be executed through the{" "}
+            <b>Dashcam system</b> shown in our simulation video. <br />
+            Before sending alerts, please download and install our mobile application:
+          </p>
+          <a
+            href="https://drive.google.com/file/d/117bI_oKGRi0Xalrya4rP_HsiW8sZJF3k/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              marginTop: "8px",
+              color: "#0056b3",
+              textDecoration: "underline",
+              fontWeight: "bold",
+            }}
+          >
+            📱 Download APK
+          </a>
+        </div>
+      )}
+
+      {/* Header */}
       <header className="dashcamheader-unique7">
         <div className="dashcamheader-unique-content">
           <button onClick={() => navigate("/")} className="dashcamheader-unique-backbtn">
@@ -188,7 +242,9 @@ export default function TestVideo() {
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="dashcammain-unique">
+        {/* existing code unchanged */}
         <form onSubmit={handleSubmit} className="dashcamform-unique">
           <div className="dashcamupload-unique-box">
             <Upload size={44} />
@@ -231,7 +287,6 @@ export default function TestVideo() {
           {error && <div className="dashcamerror-unique">{error}</div>}
         </form>
 
-        {/* ✅ Results Section */}
         {!isProcessing && (
           <div className="dashcamresults-unique">
             {results.length > 0 ? (
