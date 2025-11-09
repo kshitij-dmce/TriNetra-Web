@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Upload, MapPin, Image as ImageIcon, Video, X } from "lucide-react";
 import "./TestVideo.css";
 
-const FLASK_FRAME_URL = "https://decomposed-cacophonically-wen.ngrok-free.dev/frame";
+const FLASK_FRAME_URL = "http://15.206.89.117:8080/frame";
 
 export default function TestVideo() {
   const navigate = useNavigate();
