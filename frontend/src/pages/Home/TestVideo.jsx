@@ -78,9 +78,10 @@ export default function TestVideo() {
       const data = await response.json();
 
       if (data.alert_type && data.alert_type.trim() !== "") {
-        const vehicles = Array.isArray(data.vehicles_detected)
-          ? data.vehicles_detected.join(", ")
-          : data.vehicles_detected || "Unknown";
+  const vehicles =
+    Array.isArray(data.vehicles_detected) && data.vehicles_detected.length > 0
+      ? data.vehicles_detected.join(", ")
+      : "No vehicle detected";
         setResults([
           {
             frame: 1,
@@ -145,9 +146,10 @@ export default function TestVideo() {
         const data = await response.json();
 
         if (data.alert_type && data.alert_type.trim() !== "") {
-          const vehicles = Array.isArray(data.vehicles_detected)
-            ? data.vehicles_detected.join(", ")
-            : data.vehicles_detected || "Unknown";
+  const vehicles =
+    Array.isArray(data.vehicles_detected) && data.vehicles_detected.length > 0
+      ? data.vehicles_detected.join(", ")
+      : "No vehicle detected";
 
           output.push({
             frame: i + 1,
